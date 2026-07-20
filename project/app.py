@@ -2,21 +2,24 @@ from flask import Flask, render_template, redirect, url_for, session, request, m
 from auth import auth_bp
 import mysql.connector
 import os
+from dotenv import load_dotenv
 import uuid
 from datetime import datetime
 
+load_dotenv()
+
 dbconfig = {
-    "user": "Placeholder",
-    "password": "Placeholder",
-    "host": "Placeholder",
-    "database": "Placeholder"
+    "user": os.environ.get("DB_USER", "Placeholder"),
+    "password": os.environ.get("DB_PASSWORD", "Placeholder"),
+    "host": os.environ.get("DB_HOST", "Placeholder"),
+    "database": os.environ.get("DB_NAME", "Placeholder")
 }
 
 def get_db_connection():
     return mysql.connector.connect(**dbconfig)
 
 app = Flask(__name__)
-app.secret_key = "your-secret-key"
+app.secret_key = os.environ.get("SECRET_KEY", "your-secret-key")
 
 app.get_db_connection = get_db_connection
 

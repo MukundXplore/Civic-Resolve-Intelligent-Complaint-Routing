@@ -25,3 +25,6 @@ venv.bak/
 # Local database configuration / environments
 .env
 instance/
+
+# Git bundle backups
+*.bundle
